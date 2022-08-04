@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  admin_bot:
-    image: admin_bot:$TAG
+  gitsignage:
+    image: gitsignage:$TAG
     build:
       context: .
       dockerfile: Dockerfile
