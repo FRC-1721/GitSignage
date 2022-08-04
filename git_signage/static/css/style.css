@@ -1,6 +1,7 @@
 body {
     color: white;
     background-color: black;
+    font-family: Ubuntu, "times new roman", times, roman, serif;
 }
 
 #openIssues {
@@ -9,4 +10,8 @@ body {
 
 #openPRs {
     background-color: green;
+}
+
+#bigNumber {
+    font-size: 10vw;
 }
