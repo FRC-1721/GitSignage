@@ -4,6 +4,6 @@ services:
   gitsignage:
     image: ghcr.io/frc-1721/gitsignage:main
     environment:
-      GITHUB_TOKEN: "top.secret.token"
+      GITHUB_TOKEN: "Greatness Awaits"
     restart: "always"
     command: "true"
