@@ -1,0 +1,12 @@
+body {
+    color: white;
+    background-color: black;
+}
+
+#openIssues {
+    background-color: red;
+}
+
+#openPRs {
+    background-color: green;
+}

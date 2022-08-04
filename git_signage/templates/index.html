@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <span style="font-weight: bold;"></span>
+    <table style="text-align: left; width: 1920px; height: 1080px;" border="1" cellpadding="2" cellspacing="2">
+        <tbody>
+            <tr>
+                <td style="vertical-align: center; text-align: center;">Commit Frequency<br></td>
+                <td style="vertical-align: center; text-align: center;" id="openIssues">
+                    <div>ISSUES</div><br>
+                </td>
+                <td style="vertical-align: center; text-align: center;" id="openPRs">
+                    <div>OPEN PULL REQUESTS</div><br><br>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: center; text-align: center;">Upcoming Milestones<br></td>
+                <td style="vertical-align: center; text-align: center;"><br></td>
+                <td style="vertical-align: center; text-align: center;"><br></td>
+            </tr>
+        </tbody>
+    </table><span style="font-weight: bold;"></span>
+    <script>
+        fetch('/test').then(function (response) {
+            return response.json();
+        }).then(function (text) {
+            console.log('GET response:');
+            console.log(text.greeting);
+        });</script>
+
+    <p id="mylog">
+
+    </p>
+
+</body>
+
+</html>
