@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  admin_bot:
+    image: admin_bot:$TAG
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      GITHUB_TOKEN: "top.secret.token"
+    restart: "no"
+    command: "true"

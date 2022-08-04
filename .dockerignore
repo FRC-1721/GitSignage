@@ -1,0 +1,14 @@
+# Ignore everything
+*
+
+# Don't ignore...
+!git_signage/
+!requirements/
+!resources/
+!bin/
+!setup.py
+!README.md
+!LICENSE
+
+# Testing
+!tests/

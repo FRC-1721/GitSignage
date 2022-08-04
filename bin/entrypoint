@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" = test ]; then
+    # Run pytest if needed
+    exec pytest "${@:2}"
+else
+    # Run the actual code otherwise
+    cd git_signage && python3 -m flask run --host=0.0.0.0
+fi
