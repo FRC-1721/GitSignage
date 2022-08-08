@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css"
         href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
@@ -12,7 +13,9 @@
     <table style="text-align: left; width: 100%; height: 1080px;" border="1" cellpadding="2" cellspacing="2">
         <tbody>
             <tr style="height: 30%;">
-                <td style="width: 70%; text-align: center;">Commit Frequency (todo)<br></td>
+                <td style="width: 1100px; height: 320px; text-align: center;">
+                    <canvas id="myChart" width="1100px" height="320px"></canvas><br>
+                </td>
                 <td style="width: 15%; text-align: center;" id="openIssues">
                     <div id="openIssuesLabel">ISSUES</div><br>
                     <div id="openIssuesNumber">-1</div>
@@ -89,6 +92,41 @@
                             }
                         });
                     });
+                });
+
+
+                // Charts
+                const ctx = document.getElementById('myChart').getContext('2d');
+                data = {}
+
+                fetch('/getWeekly').then(function (response) {
+                    return response.json();
+                }).then(function (dataArray) {
+                    data = {
+                        labels: dataArray[0],
+                        datasets: [{
+                            label: 'GC-1000-GPS',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: dataArray[0]
+                        }, {
+                            label: 'KICAD LIB',
+                            backgroundColor: 'rgb(144, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: dataArray[1]
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: data,
+                        options: {}
+                    };
+
+                    const myChart = new Chart(
+                        document.getElementById('myChart'),
+                        config
+                    );
                 });
 
             }, 30000);

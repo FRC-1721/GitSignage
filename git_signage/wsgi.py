@@ -64,6 +64,14 @@ def getProjects():
     return result
 
 
+def getWeeklyStats():
+    result = []
+
+    for repo in monitoredRepos:
+        result.append(repo.get_stats_participation().all)
+    return result
+
+
 @app.route("/")
 def home_page():
     example_embed = "This string is from python"
@@ -89,3 +97,10 @@ def getProjectData():  # GET request
 
     if request.method == "GET":
         return jsonify(getProjects())  # Serialize and return
+
+
+@app.route("/getWeekly", methods=["GET", "POST"])
+def getWeekly():  # GET request
+
+    if request.method == "GET":
+        return jsonify(getWeeklyStats())  # Serialize and return
