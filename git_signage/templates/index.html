@@ -40,6 +40,8 @@
                                 </td>
                                 <td style="vertical-align: top;">Milestone<br>
                                 </td>
+                                <td style="vertical-align: top;">State<br>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -80,6 +82,11 @@
                         item.forEach(function (item, index) {
                             var Newcell = NewRow.insertCell(index);
                             Newcell.innerHTML = item;
+                            if (item.includes("open")) {
+                                Newcell.className = "openCell"
+                            } else if (item.includes("closed")) {
+                                Newcell.className = "closedCell"
+                            }
                         });
                     });
                 });

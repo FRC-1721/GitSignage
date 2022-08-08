@@ -19,3 +19,15 @@ body {
 #openPRNumber {
     font-size: 10vw;
 }
+
+.openCell {
+    height: 50px;
+    text-align: center;
+    background-color: #c50b0b
+}
+
+.closedCell {
+    height: 50px;
+    text-align: center;
+    background-color: #2e9e59
+}

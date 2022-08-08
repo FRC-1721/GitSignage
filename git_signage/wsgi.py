@@ -15,7 +15,6 @@ for repo in repo_list:
     monitoredRepos.append(g.get_repo(repo))
 
 
-
 # Stats
 def getNumberIssues():
     result = 0
@@ -24,6 +23,7 @@ def getNumberIssues():
         result += len(list(repo.get_issues(state="open")))
     return result
 
+
 def getNumberPullRequests():
     result = 0
 
@@ -31,27 +31,50 @@ def getNumberPullRequests():
         result += len(list(repo.get_pulls(state="open")))
     return result
 
+
+# def getProjects():
+#     result = []
+
+#     # This will need to be changed for the new API
+#     for repo in monitoredRepos:
+#         for project in repo.get_projects():
+#             for column in project.get_columns():
+#                 for card in column.get_cards():
+#                     if not card.archived:
+#                         creator = card.creator.login
+#                         if (card.note == None):
+#                             title = card.get_content().title
+#                             assignees = ""
+#                             for assignee in card.get_content().assignees:
+#                                 assignees = assignees + str(assignee.login) + ", "
+#                         else:
+#                             title = card.note
+#                             assignees = "N/A"
+#                         updatedAt = card.updated_at.strftime('%X %x %Z')
+
+#                         result.append([creator, title, updatedAt, assignees, "TODO", "TODO"])
+#     return result
+
+
 def getProjects():
     result = []
 
     # This will need to be changed for the new API
     for repo in monitoredRepos:
-        for project in repo.get_projects():
-            for column in project.get_columns():
-                for card in column.get_cards():
-                    if not card.archived:
-                        creator = card.creator.login
-                        if (card.note == None):
-                            title = card.get_content().title
-                            assignees = ""
-                            for assignee in card.get_content().assignees:
-                                assignees = assignees + str(assignee.login) + ", "
-                        else:
-                            title = card.note
-                            assignees = "N/A"
-                        updatedAt = card.updated_at.strftime('%X %x %Z')
+        for item in repo.get_issues():
+            print(item.title)
+            assignees = ""
 
-                        result.append([creator, title, updatedAt, assignees, "TODO", "TODO"])
+            state = item.state
+            creator = item.user.login
+
+            title = item.title
+            for assignee in item.assignees:
+                assignees = assignees + str(assignee.login) + ", "
+            updatedAt = item.updated_at.strftime("%X %x %Z")
+
+            result.append([creator, title, updatedAt, assignees, "TODO", "TODO", state])
+
     return result
 
 
@@ -73,6 +96,7 @@ def getCurNumbers():  # GET request
     if request.method == "POST":
         print(request.get_json())  # parse as JSON
         return "Sucesss", 200
+
 
 @app.route("/getProjectData", methods=["GET", "POST"])
 def getProjectData():  # GET request
