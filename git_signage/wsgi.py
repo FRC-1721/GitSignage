@@ -34,6 +34,7 @@ def getNumberPullRequests():
 def getProjects():
     result = []
 
+    # This will need to be changed for the new API
     for repo in monitoredRepos:
         for project in repo.get_projects():
             for column in project.get_columns():
