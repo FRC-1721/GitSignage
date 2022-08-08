@@ -20,14 +20,28 @@ body {
     font-size: 10vw;
 }
 
-.openCell {
-    height: 50px;
-    text-align: center;
-    background-color: #c50b0b
-}
 
 .closedCell {
     height: 50px;
     text-align: center;
     background-color: #2e9e59
+}
+
+.openCell {
+    height: 50px;
+    text-align: center;
+    background-color: #c50b0b;
+    animation: blinking 2s infinite;
+}
+
+@keyframes blinking {
+    0% {
+        background-color: #c50b0b;
+        color: #ddd;
+    }
+
+    100% {
+        background-color: #000000;
+        color: #fff;
+    }
 }

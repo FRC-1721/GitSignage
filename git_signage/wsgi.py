@@ -44,12 +44,16 @@ def getProjects():
             state = item.state
             creator = item.user.login
 
+            labels = ""
+            for label in item.labels:
+                labels += label.name + ", "
+
             title = item.title
             for assignee in item.assignees:
                 assignees = assignees + str(assignee.login) + ", "
             updatedAt = item.updated_at.strftime("%X %x %Z")
 
-            result.append([creator, title, updatedAt, assignees, "TODO", "TODO", state])
+            result.append([creator, title, updatedAt, assignees, labels, "TODO", state])
 
     return result
 
