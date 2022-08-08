@@ -12,6 +12,10 @@ body {
     background-color: green;
 }
 
-#bigNumber {
+#openIssuesNumber {
+    font-size: 10vw;
+}
+
+#openPRNumber {
     font-size: 10vw;
 }

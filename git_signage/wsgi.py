@@ -10,11 +10,14 @@ def home_page():
     return render_template("index.html", embed=example_embed)
 
 
-@app.route("/test", methods=["GET", "POST"])
+@app.route("/getCurNumbers", methods=["GET", "POST"])
 def testfn():  # GET request
     if request.method == "GET":
-        message = {"greeting": "Hello from Flask!"}
-        return jsonify(message)  # serialize and use JSON headers    # POST request
+        message = {
+            "open_pull_requests": 16,
+            "open_issues": 13,
+        }
+        return jsonify(message)  # Serialize and return
     if request.method == "POST":
         print(request.get_json())  # parse as JSON
         return "Sucesss", 200

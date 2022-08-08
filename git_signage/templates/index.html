@@ -15,11 +15,11 @@
                 <td style="width:70%; vertical-align: center; text-align: center;">Commit Frequency (todo)<br></td>
                 <td style="width:15%; vertical-align: center; text-align: center;" id="openIssues">
                     <div id="openIssuesLabel">ISSUES</div><br>
-                    <div id="bigNumber">0</div>
+                    <div id="openIssuesNumber">-1</div>
                 </td>
                 <td style="width:15%; vertical-align: center; text-align: center;" id="openPRs">
                     <div>OPEN PULL REQUESTS</div><br><br>
-                    <div id="bigNumber">2</div>
+                    <div id="openPRNumber">-1</div>
                 </td>
             </tr>
             <tr style="height: 70%;">
@@ -28,18 +28,26 @@
             </tr>
         </tbody>
     </table><span style="font-weight: bold;"></span>
+
     <script>
-        fetch('/test').then(function (response) {
-            return response.json();
-        }).then(function (text) {
-            console.log('GET response:');
-            console.log(text.greeting);
-        });</script>
+        function startLiveUpdate() {
+            const openPRCount = document.getElementById("openPRNumber");
+            const openIssuesCount = document.getElementById("openIssuesNumber");
 
-    <p id="mylog">
+            setInterval(function () {
+                fetch('/getCurNumbers').then(function (response) {
+                    return response.json();
+                }).then(function (text) {
+                    openPRCount.textContent = text.open_issues;
+                    openIssuesCount.textContent = text.open_pull_requests;
+                });
+            }, 2000);
+        }
 
-    </p>
-
+        document.addEventListener('DOMContentLoaded', function () {
+            startLiveUpdate();
+        })
+    </script>
 </body>
 
 </html>

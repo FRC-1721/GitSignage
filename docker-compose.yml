@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   gitsignage:
-    image: gitsignage:$TAG
+    image: gitsignage:DEVEL
     build:
       context: .
       dockerfile: Dockerfile
