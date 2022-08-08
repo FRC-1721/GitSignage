@@ -50,7 +50,7 @@ def getProjects():
                             assignees = "N/A"
                         updatedAt = card.updated_at.strftime('%X %x %Z')
 
-                        result.append({"Creator":creator, "Title":title, "Updated At":updatedAt, "Assignees":assignees, "Labels":"TODO", "Milestone":"TODO"})
+                        result.append([creator, title, updatedAt, assignees, "TODO", "TODO"])
     return result
 
 

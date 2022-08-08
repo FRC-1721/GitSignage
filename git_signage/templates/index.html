@@ -65,24 +65,26 @@
                 });
 
                 // Table
-                while (projectTable.rows.length > 1) {
-                    projectTable.deleteRow(1);
-                }
+                fetch('/getProjectData').then(function (response) {
+                    return response.json();
+                }).then(function (dataArray) {
 
+                    while (projectTable.rows.length > 1) {
+                        projectTable.deleteRow(1);
+                    }
 
-                const dataArray = [["Creator1", "Title1", "Updated never"], ["Creator2", "Title2", "Updated never"], ["Creator3", "Title3", "Updated never"]];
+                    dataArray.forEach(function (item, index) {
 
-                dataArray.forEach(function (item, index) {
+                        var NewRow = projectTable.insertRow();
 
-                    var NewRow = projectTable.insertRow();
-
-                    item.forEach(function (item, index) {
-                        var Newcell = NewRow.insertCell(index);
-                        Newcell.innerHTML = item;
+                        item.forEach(function (item, index) {
+                            var Newcell = NewRow.insertCell(index);
+                            Newcell.innerHTML = item;
+                        });
                     });
                 });
 
-            }, 10000);
+            }, 30000);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
