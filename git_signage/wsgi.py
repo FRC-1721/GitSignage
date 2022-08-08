@@ -32,36 +32,12 @@ def getNumberPullRequests():
     return result
 
 
-# def getProjects():
-#     result = []
-
-#     # This will need to be changed for the new API
-#     for repo in monitoredRepos:
-#         for project in repo.get_projects():
-#             for column in project.get_columns():
-#                 for card in column.get_cards():
-#                     if not card.archived:
-#                         creator = card.creator.login
-#                         if (card.note == None):
-#                             title = card.get_content().title
-#                             assignees = ""
-#                             for assignee in card.get_content().assignees:
-#                                 assignees = assignees + str(assignee.login) + ", "
-#                         else:
-#                             title = card.note
-#                             assignees = "N/A"
-#                         updatedAt = card.updated_at.strftime('%X %x %Z')
-
-#                         result.append([creator, title, updatedAt, assignees, "TODO", "TODO"])
-#     return result
-
-
 def getProjects():
     result = []
 
     # This will need to be changed for the new API
     for repo in monitoredRepos:
-        for item in repo.get_issues():
+        for item in repo.get_issues(state="all"):
             print(item.title)
             assignees = ""
 
