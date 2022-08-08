@@ -11,19 +11,39 @@
     <span style="font-weight: bold;"></span>
     <table style="text-align: left; width: 100%; height: 1080px;" border="1" cellpadding="2" cellspacing="2">
         <tbody>
-            <tr style="height:30%">
-                <td style="width:70%; vertical-align: center; text-align: center;">Commit Frequency (todo)<br></td>
-                <td style="width:15%; vertical-align: center; text-align: center;" id="openIssues">
+            <tr style="height: 30%;">
+                <td style="width: 70%; text-align: center;">Commit Frequency (todo)<br></td>
+                <td style="width: 15%; text-align: center;" id="openIssues">
                     <div id="openIssuesLabel">ISSUES</div><br>
                     <div id="openIssuesNumber">-1</div>
                 </td>
-                <td style="width:15%; vertical-align: center; text-align: center;" id="openPRs">
-                    <div>OPEN PULL REQUESTS</div><br><br>
+                <td style="width: 15%; text-align: center;" id="openPRs">
+                    <div>OPEN PULL REQUESTS</div><br>
                     <div id="openPRNumber">-1</div>
                 </td>
             </tr>
             <tr style="height: 70%;">
-                <td style="text-align: center;">Upcoming Milestones (todo)<br></td>
+                <td style="text-align: center; vertical-align: top;">
+                    <table id="projectTable" style="text-align: center; width: 100%;" border="1" cellpadding="2"
+                        cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top;">Creator<br>
+                                </td>
+                                <td style="vertical-align: top;">Title<br>
+                                </td>
+                                <td style="vertical-align: top;">Last Updated<br>
+                                </td>
+                                <td style="vertical-align: top;">Assignees<br>
+                                </td>
+                                <td style="vertical-align: top;">Labels<br>
+                                </td>
+                                <td style="vertical-align: top;">Milestone<br>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
                 <td colspan="2" rowspan="1" style="text-align: center;"><br></td>
             </tr>
         </tbody>
@@ -33,14 +53,34 @@
         function startLiveUpdate() {
             const openPRCount = document.getElementById("openPRNumber");
             const openIssuesCount = document.getElementById("openIssuesNumber");
+            const projectTable = document.getElementById("projectTable");
 
             setInterval(function () {
+                // Big numbers
                 fetch('/getCurNumbers').then(function (response) {
                     return response.json();
                 }).then(function (text) {
                     openPRCount.textContent = text.open_issues;
                     openIssuesCount.textContent = text.open_pull_requests;
                 });
+
+                // Table
+                while (projectTable.rows.length > 1) {
+                    projectTable.deleteRow(1);
+                }
+
+                const dataArray = [["Creator1", "Title1", "Updated never"], ["Creator2", "Title2", "Updated never"], ["Creator3", "Title3", "Updated never"]];
+
+                dataArray.forEach(function (item, index) {
+
+                    var NewRow = projectTable.insertRow();
+
+                    item.forEach(function (item, index) {
+                        var Newcell = NewRow.insertCell(index);
+                        Newcell.innerHTML = item;
+                    });
+                });
+
             }, 2000);
         }
 
