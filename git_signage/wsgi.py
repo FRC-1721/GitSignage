@@ -32,21 +32,26 @@ def getNumberPullRequests():
     return result
 
 def getProjects():
+    result = []
+
     for repo in monitoredRepos:
         for project in repo.get_projects():
             for column in project.get_columns():
                 for card in column.get_cards():
-                    print("============")
-                    print(card.creator)
-                    if (card.note == None):
-                        print(card.get_content().title)
-                        print(card.get_content().assignees)
-                    else:
-                        print(card.note)
-                    print(card.updated_at)
-                    print(card.archived)
-                    print("============")
+                    if not card.archived:
+                        creator = card.creator.login
+                        if (card.note == None):
+                            title = card.get_content().title
+                            assignees = ""
+                            for assignee in card.get_content().assignees:
+                                assignees = assignees + str(assignee.login) + ", "
+                        else:
+                            title = card.note
+                            assignees = "N/A"
+                        updatedAt = card.updated_at.strftime('%X %x %Z')
 
+                        result.append({"Creator":creator, "Title":title, "Updated At":updatedAt, "Assignees":assignees, "Labels":"TODO", "Milestone":"TODO"})
+    return result
 
 
 @app.route("/")
@@ -56,7 +61,7 @@ def home_page():
 
 
 @app.route("/getCurNumbers", methods=["GET", "POST"])
-def testfn():  # GET request
+def getCurNumbers():  # GET request
 
     if request.method == "GET":
         message = {
@@ -67,3 +72,9 @@ def testfn():  # GET request
     if request.method == "POST":
         print(request.get_json())  # parse as JSON
         return "Sucesss", 200
+
+@app.route("/getProjectData", methods=["GET", "POST"])
+def getProjectData():  # GET request
+
+    if request.method == "GET":
+        return jsonify(getProjects())  # Serialize and return
