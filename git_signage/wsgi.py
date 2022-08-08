@@ -38,7 +38,6 @@ def getProjects():
     # This will need to be changed for the new API
     for repo in monitoredRepos:
         for item in repo.get_issues(state="all"):
-            print(item.title)
             assignees = ""
 
             state = item.state
@@ -53,7 +52,14 @@ def getProjects():
                 assignees = assignees + str(assignee.login) + ", "
             updatedAt = item.updated_at.strftime("%X %x %Z")
 
-            result.append([creator, title, updatedAt, assignees, labels, "TODO", state])
+            if state != "open":
+                result.append(
+                    [creator, title, updatedAt, assignees, labels, "TODO", state]
+                )
+            else:
+                result.insert(
+                    0, [creator, title, updatedAt, assignees, labels, "TODO", state]
+                )
 
     return result
 
